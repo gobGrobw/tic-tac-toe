@@ -1,4 +1,4 @@
-function gameBoard() {
+function game() {
     let board = [];
     let rows = 3;
     let columns = 3;
@@ -10,11 +10,11 @@ function gameBoard() {
         }
     }
 
-
-    const markCell = (index, player) => {
+    const markCell = (row, column, index, player) => {
         const button = document.querySelector(`[data-index='${index}']`);
         button.textContent = player;
 
+        board[row][column].addValue(player);
     }
 
     const makeBoard = () => {
@@ -22,22 +22,69 @@ function gameBoard() {
         console.log(boardWithValues);
     }
 
-    const getBoard = () => board;
+    const checkWinner = (move) => {
+        switch(true) {
+            case board[0][0].getValue() + board[0][1].getValue() + board[0][2].getValue() == 3:
+                console.log('X win');
+                break;
+            
+            case board[1][0].getValue() + board[1][1].getValue() + board[1][2].getValue() == 3:
+                console.log('X win');
+                break;
+
+            case board[2][0].getValue() + board[2][1].getValue() + board[2][2].getValue() == 3:
+                console.log('X win');
+                break;
+            
+            case board[0][0].getValue() + board[1][1].getValue() + board[2][2].getValue() == 3:
+                console.log('X win');
+                break;
+
+            case board[0][2].getValue() + board[1][1].getValue() + board[2][0].getValue() == 3:
+                console.log('X win');
+                break;
+
+            case board[0][0].getValue() + board[0][1].getValue() + board[0][2].getValue() == -3:
+                console.log('O win');
+                break;
+            
+            case board[1][0].getValue() + board[1][1].getValue() + board[1][2].getValue() == -3:
+                console.log('O win');
+                break;
+
+            case board[2][0].getValue() + board[2][1].getValue() + board[2][2].getValue() == -3:
+                console.log('O win');
+                break;
+            
+            case board[0][0].getValue() + board[1][1].getValue() + board[2][2].getValue() == -3:
+                console.log('O win');
+                break;
+
+            case board[0][2].getValue() + board[1][1].getValue() + board[2][0].getValue() == -3:
+                console.log('O win');
+                break;
+
+            case move == 9:
+                console.log('draw');
+                break;
+        }
+    }
+
 
     return {
-        getBoard,
         makeBoard,
-        markCell
-    }
+        markCell,
+        checkWinner
+    }   
 }
 
 function Cell() {
-    let value = 0;
+    let value = ' ';
     const getValue = () => value;
 
 
     const addValue = (player) => {
-        value = marker;
+        value = player === 'X' ? 1 : -1;
     }
 
     return {
@@ -47,8 +94,9 @@ function Cell() {
 }
 
 function screenController() {
-    const board = gameBoard();
+    const board = game();
     const cells = document.querySelectorAll('.cell');
+    let move = 0;
     let players = [
         {
             mark: 'X'
@@ -71,10 +119,22 @@ function screenController() {
     const addMarkToCell = () => {
         cells.forEach(cell => {
             cell.addEventListener('click', () => {
-                board.markCell(cell.dataset.index, getActivePlayer().mark);
+                move++;
+                board.markCell(
+                    cell.dataset.row,
+                    cell.dataset.column, 
+                    cell.dataset.index, 
+                    getActivePlayer().mark
+                    );
+                board.checkWinner(move);
                 switchPlayer();
+                newBoard();
             });
         })
+    }
+
+    const newBoard = () => {
+        board.makeBoard();
     }
 
     const clearBoard = () => {
@@ -91,9 +151,10 @@ function screenController() {
         restartBtn.addEventListener('click', clearBoard);
     }
 
+    newBoard();
+
     return {
         addMarkToCell,
-        getActivePlayer,
         restartGame
     }
 }
@@ -101,5 +162,3 @@ function screenController() {
 const screen = screenController();
 screen.addMarkToCell();
 screen.restartGame();
-
-gameBoard().makeBoard();
