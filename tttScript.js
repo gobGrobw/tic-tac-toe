@@ -19,53 +19,17 @@ function game() {
 
     const makeBoard = () => {
         const boardWithValues = board.map(row => row.map(cell => cell.getValue()));
-        console.log(boardWithValues);
     }
 
     const checkWinner = (move) => {
+        const winText = document.querySelector('#winner-p');
+        const modal = document.querySelector('.modal-container');
+        const overlay = document.querySelector('.overlay');
         switch(true) {
-            case board[0][0].getValue() + board[0][1].getValue() + board[0][2].getValue() == 3:
-                console.log('X win');
-                break;
-            
-            case board[1][0].getValue() + board[1][1].getValue() + board[1][2].getValue() == 3:
-                console.log('X win');
-                break;
-
-            case board[2][0].getValue() + board[2][1].getValue() + board[2][2].getValue() == 3:
-                console.log('X win');
-                break;
-            
-            case board[0][0].getValue() + board[1][1].getValue() + board[2][2].getValue() == 3:
-                console.log('X win');
-                break;
-
-            case board[0][2].getValue() + board[1][1].getValue() + board[2][0].getValue() == 3:
-                console.log('X win');
-                break;
-
-            case board[0][0].getValue() + board[0][1].getValue() + board[0][2].getValue() == -3:
-                console.log('O win');
-                break;
-            
-            case board[1][0].getValue() + board[1][1].getValue() + board[1][2].getValue() == -3:
-                console.log('O win');
-                break;
-
-            case board[2][0].getValue() + board[2][1].getValue() + board[2][2].getValue() == -3:
-                console.log('O win');
-                break;
-            
-            case board[0][0].getValue() + board[1][1].getValue() + board[2][2].getValue() == -3:
-                console.log('O win');
-                break;
-
-            case board[0][2].getValue() + board[1][1].getValue() + board[2][0].getValue() == -3:
-                console.log('O win');
-                break;
-
             case move == 9:
-                console.log('draw');
+                winText.textContent = "Draw!";
+                modal.classList.add('active');
+                overlay.classList.add('active');
                 break;
         }
     }
@@ -137,18 +101,11 @@ function screenController() {
         board.makeBoard();
     }
 
-    const clearBoard = () => {
-        cells.forEach(cell => {
-            cell.textContent = '';
-        })
-
-        activePlayer = players[0];
-        announcement.textContent = `${getActivePlayer().mark}'s Turn`;
-    }
-
     const restartGame = () => {
         const restartBtn = document.querySelector('#restart-btn');
-        restartBtn.addEventListener('click', clearBoard);
+        const playAgainBtn = document.querySelector('#play-again-btn');
+        restartBtn.addEventListener('click', () => location.reload());
+        playAgainBtn.addEventListener('click', () => location.reload());
     }
 
     newBoard();

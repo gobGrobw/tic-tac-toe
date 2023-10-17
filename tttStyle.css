@@ -60,3 +60,60 @@ body {
     border-radius: 15px;
     cursor: pointer;
 }
+
+.modal-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 10;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 250px;
+    width: 300px;
+    border-radius: 10px;
+    gap: 45px;
+    transition: ease-in-out 200ms;
+}
+
+.modal p {
+    font-size: 2rem;
+}
+
+.modal button {
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    height: 70px;
+    width: 160px;
+    border: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    background: rgba(0, 0, 0, .5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    pointer-events: none;
+}
+
+.modal-container.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.overlay.active {
+    opacity: 1;
+}
