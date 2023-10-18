@@ -36,7 +36,7 @@ function gameLogic() {
                     p.textContent = `${marker}'s win!`;
                     modal.classList.add('active');
                     overlay.classList.add('active');
-                }
+                };
             };
         };
     };
