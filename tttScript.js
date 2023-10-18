@@ -18,26 +18,26 @@ function gameLogic() {
     const markCell = (index, mark) => {
         // Append index to marker array
         if(mark === 'X') {
-            xBoard.push(index);
+            xBoard.push(Number(index));
         } else {
-            oBoard.push(index);
+            oBoard.push(Number(index));
         };
-        console.log(xBoard);
-        console.log(oBoard);
     };
 
     const checkWinner = (marker) => {
         const modal = document.querySelector('.modal-container');
         const overlay = document.querySelector('.overlay');
         const p = document.querySelector('#winner-p');
+                
         for(let i = 0; i < winCon.length; i++) {
-            // Need to add draw feature
-            // Need to add ability to win more than 3 moves in
-            if(winCon[i].join(',') === xBoard.join(',') || winCon[i].join(',') === oBoard.join(',')) {
-                p.textContent = `${marker}'s win!`;
-                modal.classList.add('active');
-                overlay.classList.add('active');
-            }
+            for(let j = 0; j < winCon[i].length; j++) {
+                if(xBoard.includes(winCon[i][0]) && xBoard.includes(winCon[i][1]) && xBoard.includes(winCon[i][2]) && xBoard.length >= 3 ||
+                oBoard.includes(winCon[i][0]) && oBoard.includes(winCon[i][1]) && oBoard.includes(winCon[i][2]) && oBoard.length >= 3) {
+                    p.textContent = `${marker}'s win!`;
+                    modal.classList.add('active');
+                    overlay.classList.add('active');
+                }
+            };
         };
     };
 
@@ -73,6 +73,8 @@ function screenController() {
     const logic = gameLogic();
     const render = renderer();
 
+    let move = 0;
+
     const marks = [
         {marker: 'X'},
         {marker: 'O'}
@@ -87,6 +89,10 @@ function screenController() {
     const clickCell = () => {
         cells.forEach(cell => {
             cell.addEventListener('click', () => {
+                move++;
+                if(move == 9) {
+                    render.renderDraw();
+                }
                 logic.markCell(cell.dataset.index, getActiveMark().marker);
                 logic.checkWinner(getActiveMark().marker);
                 render.displayMarker(cell.dataset.index, getActiveMark().marker);
