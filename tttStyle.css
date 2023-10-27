@@ -80,7 +80,9 @@ body {
     border-radius: 10px;
     gap: 45px;
     transition: ease-in-out 200ms;
+    transform: scale(0);
 }
+
 
 .modal p {
     font-size: 2rem;
@@ -96,6 +98,56 @@ body {
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
+}
+
+.play-against-modal {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 250px;
+    width: 300px;
+    border-radius: 10px;
+    gap: 45px;
+    transition: ease-in-out 200ms;
+    font-size: 1.25rem;
+    padding: 15px;
+    transform: scale(0);
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.button-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.button-wrap button {
+    height: 100px;
+    width: 100px;
+    font-size: 60px;
+    color: white;
+    border: 0;
+    color: grey;
+    border-radius: 20px;
+    transition: ease-in-out .07s;
+}
+
+.button-wrap button:hover {
+    transform: scale(1.1);
+    background-color: blue;
+    color: white;
+}
+
+.active {
+    transform: scale(1);
 }
 
 .overlay {
@@ -117,4 +169,9 @@ body {
 .overlay.active {
     opacity: 1;
     pointer-events: all;
+}
+
+.occupied {
+    pointer-events: none;
+    cursor: pointer;
 }

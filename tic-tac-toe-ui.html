@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.3.67/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="tttStyle.css">
     <title>Document</title>
 </head>
@@ -24,14 +25,32 @@
         </div>
         <button id="restart-btn" onclick="screen.restart()">Restart</button>
 
-        <div class="modal-container">
+        <div class="modal-container active">
+            <div class="play-against-modal active">
+                <p>Play against</p>
+                <div class="btn-container">
+                    <div class="button-wrap">
+                        <button class="btn" id="player">
+                            <span class="mdi mdi-account"></span>
+                        </button>
+                        <p>Player</p>
+                    </div>
+
+                    <div class="button-wrap">
+                        <button class="btn" id="bot">
+                            <span class="mdi mdi-robot"></span>
+                        </button>
+                        <p>Bot</p>
+                    </div>
+                </div>
+            </div>
+            
             <div class="modal">
                 <p id="winner-p">X's Win</p>
                 <button id="play-again-btn" onclick="screen.restart()">Play again</button>
             </div>
         </div>
-        <div class="overlay" onclick="screen.restart()"></div>
-
+        <div class="overlay active" onclick="screen.restart()"></div>
     </div>
 
     <script src="tttScript.js"></script>
